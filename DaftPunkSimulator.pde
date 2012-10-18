@@ -23,12 +23,12 @@ void setup() {
   udp = new UDP( this, 58082 );
   udp.listen( true );
   
-  leftRail = Collections.synchronizedList(new LinkedList<VirtualRailSegment>());
-  leftRail.add(new VirtualRailSegment("A2", 0, 29, 24));
-  leftRail.add(new VirtualRailSegment("A3", 0, 55, 24));
-  leftRail.add(new VirtualRailSegment("A4", 0, 81, 25));
-  leftRail.add(new VirtualRailSegment("A5", 0, 107, 25));
-  leftRail.add(new VirtualRailSegment("A6", 0, 132, 25));
+//  leftRail = Collections.synchronizedList(new LinkedList<VirtualRailSegment>());
+//  leftRail.add(new VirtualRailSegment("A2", 0, 29, 24));
+//  leftRail.add(new VirtualRailSegment("A3", 0, 55, 24));
+//  leftRail.add(new VirtualRailSegment("A4", 0, 81, 25));
+//  leftRail.add(new VirtualRailSegment("A5", 0, 107, 25));
+//  leftRail.add(new VirtualRailSegment("A6", 0, 132, 25));
 
 }
 
@@ -91,9 +91,13 @@ void receive(byte[] data, String ip, int port) {
 
 void draw() {
   background(0);
-
-  if (newImageQueue.size() > 0) {
-    color[] newImage = (color[])newImageQueue.remove();
-  }
+  
+  Rail leftrail = new Rail();
+  
+  leftrail.draw();
+  
+//  if (newImageQueue.size() > 0) {
+//    color[] newImage = (color[])newImageQueue.remove();
+//  }
 }
 
