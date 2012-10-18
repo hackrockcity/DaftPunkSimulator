@@ -16,3 +16,4 @@ class VirtualRailSegment {
     line(m_strip, m_offset, m_strip, m_offset + m_length);
   }
 }
+
