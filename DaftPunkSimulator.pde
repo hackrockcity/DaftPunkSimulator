@@ -22,7 +22,7 @@ List<RailSegmentLocation> RailSegmentLocations;
 
 
 void setup() {
-  size(1024, 850);
+  size(600, 400);
   colorMode(RGB,255);
   frameRate(60);
   newImageQueue = new ArrayBlockingQueue(2);
