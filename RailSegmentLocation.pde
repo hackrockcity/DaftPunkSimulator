@@ -1,8 +1,8 @@
 
 // Get the x-y coordinates of a rail segment from the point number
 PVector getPositionFromPoint(int point) {
-  float xScale = 100;
-  float yScale = 100;
+  float xScale = 70;
+  float yScale = 70;
   float xOffset = 5;
   float yOffset = 5;
   
@@ -13,7 +13,7 @@ PVector getPositionFromPoint(int point) {
     x = point;
     y = 0;
   }
-  else if(point < 18) {
+  else if(point < 19) {
     x = (point - 10) + .5;
     y = 1.11;
   }
@@ -56,7 +56,7 @@ class RailSegmentLocation {
 
   void draw() {
     stroke(currentImage[m_strip + strips*m_offset]);
-//    stroke(255);
+    //stroke(255);
     strokeWeight(3);
     
     line(m_startPosition.x, m_startPosition.y, m_endPosition.x, m_endPosition.y);
