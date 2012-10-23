@@ -1,32 +1,25 @@
 import hypermedia.net.*;
 import java.util.concurrent.*;
 
-int lights_per_strip = 32*5;    // Number of lights along the strip
-int strips = 8;
+int lights_per_strip = 32*5;
+int strips = 40;
 int packet_length = strips*lights_per_strip*3 + 1;
+
 
 Boolean demoMode = true;
 BlockingQueue newImageQueue;
 
 UDP udp;
-List<VirtualRailSegment> leftRail;    // Rail segment mapping
+
+ImageHud imageHud;
+DemoTransmitter demoTransmitter;
 
 int animationStep = 0;
 int maxConvertedByte = 0;
 
-List<VirtualRailSegment> a_segments;
-List<VirtualRailSegment> b_segments;
-List<VirtualRailSegment> c_segments;
-List<VirtualRailSegment> d_segments;
-List<VirtualRailSegment> e_segments;
-List<VirtualRailSegment> h_segments;
+List<RailSegment> leftRail;    // Rail segment mapping
+List<RailSegmentLocation> RailSegmentLocations;
 
-Strip a_strip;
-Strip b_strip;
-Strip c_strip;
-Strip d_strip;
-Strip e_strip;
-Strip h_strip;
 
 void setup() {
   size(1024, 850);
@@ -34,64 +27,87 @@ void setup() {
   frameRate(60);
   newImageQueue = new ArrayBlockingQueue(2);
 
+  imageHud = new ImageHud(20, height-160-20, strips, lights_per_strip);
+
   udp = new UDP( this, 58082 );
   udp.listen( true );
+
+// Copied from DaftPunkTransmitter
+  defineStrips();
+// Copied from DaftPunkTransmitter
+
+
+  RailSegmentLocations = new LinkedList<RailSegmentLocation>();
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A2", 4,  3));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A3", 3,  2));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A4", 2,  1));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A5", 1,  0));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A6", 0,  10));
+   
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B1", 4,  13));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B2", 13, 21));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B3", 21, 12));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B4", 12, 2));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B5", 2,  11));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B6", 11, 19));
+
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C1", 14, 13));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C2", 13, 12));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C3", 12, 11));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C4", 11, 10));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C5", 10,  1));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C6",  1, 11));
   
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D1", 14, 22));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D2", 22, 13));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D3", 13,  3));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D4",  3, 12));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D5", 12, 20));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D6", 20, 11));
   
-  a_segments = new LinkedList<VirtualRailSegment>();
-  a_segments.add(new VirtualRailSegment("A1", 0, 29, new PVector(9,1)));
-  a_segments.add(new VirtualRailSegment("A2", 29, 24, new PVector(8,0))); //name, offset, length
-  a_segments.add(new VirtualRailSegment("A3", 55, 24, new PVector(6,0)));
-  a_segments.add(new VirtualRailSegment("A4", 81, 25, new PVector(4,0)));
-  a_segments.add(new VirtualRailSegment("A5", 107, 25, new PVector(2,0)));
-  a_segments.add(new VirtualRailSegment("A6", 132, 25, new PVector(0,0)));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E1", 14, 23));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E2", 23, 22));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E3", 22, 21));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E4", 21, 20));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E5", 20, 19));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E6", 19, 10));
   
-  b_segments = new LinkedList<VirtualRailSegment>();
-  b_segments.add(new VirtualRailSegment("B1", 0, 24, new PVector(8,0)));
-  b_segments.add(new VirtualRailSegment("B2", 26, 23, new PVector(7,1)));
-  b_segments.add(new VirtualRailSegment("B3", 52, 24, new PVector(6,2)));
-  b_segments.add(new VirtualRailSegment("B4", 78, 24, new PVector(5,1)));
-  b_segments.add(new VirtualRailSegment("B5", 104, 24, new PVector(4,0)));
-  b_segments.add(new VirtualRailSegment("B6", 130, 24, new PVector(3,1)));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F1", 14, 15));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F2", 15,  6));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F3",  6, 16));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F4", 16, 25));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F5", 25, 24));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F6", 24, 16));
   
-  c_segments = new LinkedList<VirtualRailSegment>();
-  c_segments.add(new VirtualRailSegment("C1", 4, 24, new PVector(9,1)));
-  c_segments.add(new VirtualRailSegment("C2", 31, 24, new PVector(7,1)));
-  c_segments.add(new VirtualRailSegment("C3", 56, 25, new PVector(5,1)));
-  c_segments.add(new VirtualRailSegment("C4", 83, 23, new PVector(3,1)));
-  c_segments.add(new VirtualRailSegment("C5", 110, 23, new PVector(1,1)));
-  c_segments.add(new VirtualRailSegment("C6", 138, 23, new PVector(2,0)));  //fixme
- 
-  d_segments = new LinkedList<VirtualRailSegment>();
-  d_segments.add(new VirtualRailSegment("D1", 4, 24, new PVector(9,1)));
-  d_segments.add(new VirtualRailSegment("D2", 29, 24, new PVector(8,2)));
-  d_segments.add(new VirtualRailSegment("D3", 54, 24, new PVector(7,1)));
-  d_segments.add(new VirtualRailSegment("D4", 81, 23, new PVector(6,0)));
-  d_segments.add(new VirtualRailSegment("D5", 107, 24, new PVector(5,1)));
-  d_segments.add(new VirtualRailSegment("D6", 132, 24, new PVector(4,2)));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G1", 14,  5));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G2",  5, 15));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G3", 15, 24));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G4", 24, 23));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G5", 23, 15));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G6", 15, 16));
+
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H1", 14,  4));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H2",  4,  5));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H3",  5,  6));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H4",  6,  7));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H5",  7, 16));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H6", 16, 17));
+
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J1", 18,  8));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J2",  8,  9));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J3",  9, 18));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J4", 18, 26));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J5", 26, 25));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J6", 25, 17));
   
-  e_segments = new LinkedList<VirtualRailSegment>();
-  e_segments.add(new VirtualRailSegment("E1", 3, 24, new PVector(9,1)));
-  e_segments.add(new VirtualRailSegment("E2", 29, 25, new PVector(10,2)));
-  e_segments.add(new VirtualRailSegment("E3", 55, 24, new PVector(8,2)));
-  e_segments.add(new VirtualRailSegment("E4", 80, 26, new PVector(6,2)));
-  e_segments.add(new VirtualRailSegment("E5", 107, 25, new PVector(4,2)));
-  e_segments.add(new VirtualRailSegment("E6", 135, 23, new PVector(2,2)));
-  
-  h_segments = new LinkedList<VirtualRailSegment>();
-  h_segments.add(new VirtualRailSegment("H1", 3, 24, new PVector(9,1)));
-  h_segments.add(new VirtualRailSegment("H2", 29, 23, new PVector(8,0)));
-  h_segments.add(new VirtualRailSegment("H3", 53, 26, new PVector(10,0)));
-  h_segments.add(new VirtualRailSegment("H4", 80, 24, new PVector(12,0)));
-  h_segments.add(new VirtualRailSegment("H5", 107, 23, new PVector(14,0)));
-  h_segments.add(new VirtualRailSegment("H6", 132, 24, new PVector(13,1)));
-  
-  a_strip = new Strip(new PVector(9,1), new PVector(1,1), a_segments);
-  b_strip = new Strip(new PVector(8,0), new PVector(2,2), b_segments);
-  c_strip = new Strip(new PVector(9,1), new PVector(3,1), c_segments);
-  d_strip = new Strip(new PVector(9,1), new PVector(3,1), d_segments);
-  e_strip = new Strip(new PVector(9,1), new PVector(1,1), e_segments);
-  h_strip = new Strip(new PVector(9,1), new PVector(15,1), h_segments);
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K1", 18, 17));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K2", 17,  8));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K3",  8,  7));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K4",  7, 17));
+  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K5", 17, 26));
+
+  demoTransmitter = new DemoTransmitter();
+  demoTransmitter.start();
 }
 
 
@@ -150,20 +166,25 @@ void receive(byte[] data, String ip, int port) {
   }
 }
 
+color[] currentImage = null;
 
 void draw() {
   background(0);
   
+  if(currentImage != null) {
+    for( RailSegmentLocation l : RailSegmentLocations) {
+      // Each segment should just look at currentImage.
+      l.draw();
+    }
+  }
   
-  a_strip.draw();
-//  b_strip.draw();
-//  c_strip.draw();
-//  d_strip.draw();
-//  e_strip.draw();
-//  h_strip.draw();
+  imageHud.draw();
   
-//  if (newImageQueue.size() > 0) {
-//    color[] newImage = (color[])newImageQueue.remove();
-//  }
+  if (newImageQueue.size() > 0) {
+    color[] newImage = (color[])newImageQueue.remove();
+    
+    imageHud.update(newImage);
+    currentImage = newImage;
+  }
 }
 
