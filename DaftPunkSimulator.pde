@@ -17,12 +17,17 @@ DemoTransmitter demoTransmitter;
 int animationStep = 0;
 int maxConvertedByte = 0;
 
-List<RailSegment> leftRail;    // Rail segment mapping
-List<RailSegmentLocation> RailSegmentLocations;
+Rail leftRailRail;          // Abstrated the rail segments into a rail, but didn't want to change the variable
+List<RailSegment> leftRail; // because the file is shared with the transmitter
+List<RailSegmentLocation> LeftRailLocations;
+
+Rail rightRailRail;
+List<RailSegment> rightRail;
+List<RailSegmentLocation> RightRailLocations;
 
 
 void setup() {
-  size(600, 400);
+  size(1200, 400);
   colorMode(RGB,255);
   frameRate(60);
   newImageQueue = new ArrayBlockingQueue(2);
@@ -33,79 +38,17 @@ void setup() {
   udp.listen( true );
 
 // Copied from DaftPunkTransmitter
-  defineStrips();
+  defineStrips();     // Define all the segments by where they are in the image stream
 // Copied from DaftPunkTransmitter
 
-
-  RailSegmentLocations = new LinkedList<RailSegmentLocation>();
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A2", 4,  3));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A3", 3,  2));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A4", 2,  1));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A5", 1,  0));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "A6", 0,  10));
-   
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B1", 4,  13));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B2", 13, 21));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B3", 21, 12));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B4", 12, 2));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B5", 2,  11));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "B6", 11, 19));
-
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C1", 14, 13));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C2", 13, 12));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C3", 12, 11));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C4", 11, 10));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C5", 10,  1));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "C6",  1, 11));
+  defineLeftRail();   // Define the rail segments by where they are in pixel space
+  defineRightRail();
   
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D1", 14, 22));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D2", 22, 13));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D3", 13,  3));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D4",  3, 12));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D5", 12, 20));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "D6", 20, 11));
+  // Add the pixel and image rail locations to a Rail and tell it where (in pixel space) to put the Rail
+  // This is just a pixel offset applied to all the RailSegmentLocations in that rail
+  leftRailRail = new Rail(leftRail, LeftRailLocations, new PVector(75,0));
+  rightRailRail = new Rail(rightRail, RightRailLocations, new PVector(75,200));
   
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E1", 14, 23));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E2", 23, 22));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E3", 22, 21));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E4", 21, 20));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E5", 20, 19));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "E6", 19, 10));
-  
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F1", 14, 15));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F2", 15,  6));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F3",  6, 16));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F4", 16, 25));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F5", 25, 24));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "F6", 24, 16));
-  
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G1", 14,  5));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G2",  5, 15));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G3", 15, 24));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G4", 24, 23));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G5", 23, 15));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "G6", 15, 16));
-
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H1", 14,  4));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H2",  4,  5));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H3",  5,  6));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H4",  6,  7));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H5",  7, 16));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "H6", 16, 17));
-
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J1", 18,  8));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J2",  8,  9));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J3",  9, 18));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J4", 18, 26));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J5", 26, 25));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "J6", 25, 17));
-  
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K1", 18, 17));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K2", 17,  8));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K3",  8,  7));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K4",  7, 17));
-  RailSegmentLocations.add(new RailSegmentLocation(leftRail, "K5", 17, 26));
-
   demoTransmitter = new DemoTransmitter();
   demoTransmitter.start();
 }
@@ -172,10 +115,8 @@ void draw() {
   background(0);
   
   if(currentImage != null) {
-    for( RailSegmentLocation l : RailSegmentLocations) {
-      // Each segment should just look at currentImage.
-      l.draw();
-    }
+    leftRailRail.draw();
+    rightRailRail.draw();
   }
   
   imageHud.draw();
