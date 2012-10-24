@@ -25,6 +25,9 @@ Rail rightRailRail;
 List<RailSegment> rightRail;
 List<RailSegmentLocation> RightRailLocations;
 
+Rail pyramid;
+List<RailSegment> pyramidSegments;
+List<RailSegmentLocation> pyramidSegmentLocations;
 
 void setup() {
   size(1200, 400);
@@ -43,11 +46,13 @@ void setup() {
 
   defineLeftRail();   // Define the rail segments by where they are in pixel space
   defineRightRail();
+  definePyramid();
   
   // Add the pixel and image rail locations to a Rail and tell it where (in pixel space) to put the Rail
   // This is just a pixel offset applied to all the RailSegmentLocations in that rail
   leftRailRail = new Rail(leftRail, LeftRailLocations, new PVector(75,0));
   rightRailRail = new Rail(rightRail, RightRailLocations, new PVector(75,200));
+  pyramid = new Rail(pyramidSegments, pyramidSegmentLocations, new PVector(800, 0));
   
   demoTransmitter = new DemoTransmitter();
   demoTransmitter.start();
@@ -117,6 +122,7 @@ void draw() {
   if(currentImage != null) {
     leftRailRail.draw();
     rightRailRail.draw();
+    pyramid.draw();
   }
   
   imageHud.draw();
