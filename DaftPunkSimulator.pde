@@ -26,6 +26,12 @@ int BOX5=32;
 List<Segment> LeftRailSegments;
 Fixture leftRail;
 
+List<Segment> RightRailSegments;
+Fixture rightRail;
+
+List<Segment> LeftTrapazoidSegments;
+Fixture leftTrapazoid;
+
 void setup() {
   size(1200, 800);
   colorMode(RGB, 255);
@@ -39,6 +45,12 @@ void setup() {
 
   defineLeftRail();   // Define the rail segments by where they are in pixel space
   leftRail = new Fixture(LeftRailSegments, new PVector(0, 0));
+  
+  defineRightRail();
+  rightRail = new Fixture(RightRailSegments, new PVector(100,100));
+  
+  defineLeftTrapazoid();
+  leftTrapazoid = new Fixture(LeftTrapazoidSegments, new PVector(200,200));
 
   demoTransmitter = new DemoTransmitter();
   demoTransmitter.start();
@@ -106,7 +118,9 @@ void draw() {
   background(0);
 
   if (currentImage != null) {
-    leftRail.draw();
+    //leftRail.draw();
+    leftTrapazoid.draw();
+    
   }
 
   imageHud.draw();

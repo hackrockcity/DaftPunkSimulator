@@ -1,226 +1,34 @@
 //// Share this between the transmitter and simulator.
-//
-//void defineStrips() {
-//  leftRail = Collections.synchronizedList(new LinkedList<RailSegment>());
-//  leftRail.add(new RailSegment("A2", 0, 29, 24));
-//  leftRail.add(new RailSegment("A3", 0, 55, 24));
-//  leftRail.add(new RailSegment("A4", 0, 81, 25));
-//  leftRail.add(new RailSegment("A5", 0, 107, 25));
-//  leftRail.add(new RailSegment("A6", 0, 133, 24));
-//  leftRail.add(new RailSegment("B1", 6, 0, 24));
-//  leftRail.add(new RailSegment("B2", 6, 26, 23));
-//  leftRail.add(new RailSegment("B3", 6, 52, 24));
-//  leftRail.add(new RailSegment("B4", 6, 78, 24));
-//  leftRail.add(new RailSegment("B5", 6, 104, 24));
-//  leftRail.add(new RailSegment("B6", 6, 130, 24));
-//  leftRail.add(new RailSegment("C1", 1, 4, 24));
-//  leftRail.add(new RailSegment("C2", 1, 31, 24));
-//  leftRail.add(new RailSegment("C3", 1, 56, 25));
-//  leftRail.add(new RailSegment("C4", 1, 83, 23));
-//  leftRail.add(new RailSegment("C5", 1, 110, 23));
-//  leftRail.add(new RailSegment("C6", 1, 138, 23));  //fixme
-//  leftRail.add(new RailSegment("D1", 2, 4, 24));
-//  leftRail.add(new RailSegment("D2", 2, 29, 24));
-//  leftRail.add(new RailSegment("D3", 2, 54, 24));
-//  leftRail.add(new RailSegment("D4", 2, 81, 23));
-//  leftRail.add(new RailSegment("D5", 2, 107, 24));
-//  leftRail.add(new RailSegment("D6", 2, 132, 24));
-//  leftRail.add(new RailSegment("E1", 7, 3, 24));
-//  leftRail.add(new RailSegment("E2", 7, 29, 25));
-//  leftRail.add(new RailSegment("E3", 7, 55, 24));
-//  leftRail.add(new RailSegment("E4", 7, 80, 26));
-//  leftRail.add(new RailSegment("E5", 7, 107, 25));
-//  leftRail.add(new RailSegment("E6", 7, 135, 23));
-//  leftRail.add(new RailSegment("H1", 3, 3, 24));
-//  leftRail.add(new RailSegment("H2", 3, 29, 23));
-//  leftRail.add(new RailSegment("H3", 3, 53, 26));
-//  leftRail.add(new RailSegment("H4", 3, 80, 24));
-//  leftRail.add(new RailSegment("H5", 3, 107, 23));
-//  leftRail.add(new RailSegment("H6", 3, 132, 24));
-//
-//
-//  rightRail = Collections.synchronizedList(new LinkedList<RailSegment>());
-//  rightRail.add(new RailSegment("A2", 0, 29, 24));
-//  rightRail.add(new RailSegment("A3", 0, 55, 24));
-//  rightRail.add(new RailSegment("A4", 0, 81, 25));
-//  rightRail.add(new RailSegment("A5", 0, 107, 25));
-//  rightRail.add(new RailSegment("A6", 0, 133, 24));
-//  rightRail.add(new RailSegment("B1", 6, 0, 24));
-//  rightRail.add(new RailSegment("B2", 6, 26, 23));
-//  rightRail.add(new RailSegment("B3", 6, 52, 24));
-//  rightRail.add(new RailSegment("B4", 6, 78, 24));
-//  rightRail.add(new RailSegment("B5", 6, 104, 24));
-//  rightRail.add(new RailSegment("B6", 6, 130, 24));
-//  rightRail.add(new RailSegment("C1", 1, 4, 24));
-//  rightRail.add(new RailSegment("C2", 1, 31, 24));
-//  rightRail.add(new RailSegment("C3", 1, 56, 25));
-//  rightRail.add(new RailSegment("C4", 1, 83, 23));
-//  rightRail.add(new RailSegment("C5", 1, 110, 23));
-//  rightRail.add(new RailSegment("C6", 1, 138, 23));  //fixme
-//  rightRail.add(new RailSegment("D1", 2, 4, 24));
-//  rightRail.add(new RailSegment("D2", 2, 29, 24));
-//  rightRail.add(new RailSegment("D3", 2, 54, 24));
-//  rightRail.add(new RailSegment("D4", 2, 81, 23));
-//  rightRail.add(new RailSegment("D5", 2, 107, 24));
-//  rightRail.add(new RailSegment("D6", 2, 132, 24));
-//  rightRail.add(new RailSegment("E1", 7, 3, 24));
-//  rightRail.add(new RailSegment("E2", 7, 29, 25));
-//  rightRail.add(new RailSegment("E3", 7, 55, 24));
-//  rightRail.add(new RailSegment("E4", 7, 80, 26));
-//  rightRail.add(new RailSegment("E5", 7, 107, 25));
-//  rightRail.add(new RailSegment("E6", 7, 135, 23));
-//  rightRail.add(new RailSegment("H1", 3, 3, 24));
-//  rightRail.add(new RailSegment("H2", 3, 29, 23));
-//  rightRail.add(new RailSegment("H3", 3, 53, 26));
-//  rightRail.add(new RailSegment("H4", 3, 80, 24));
-//  rightRail.add(new RailSegment("H5", 3, 107, 23));
-//  rightRail.add(new RailSegment("H6", 3, 132, 24));
-//
-//}
-//
-//void defineLeftRail() {
-//
-//  LeftRailLocations = new LinkedList<RailSegmentLocation>();
-//  LeftRailLocations.add(new RailSegmentLocation( "A2", 4, 30));
-//  LeftRailLocations.add(new RailSegmentLocation( "A3", 3, 2));
-//  LeftRailLocations.add(new RailSegmentLocation( "A4", 2, 1));
-//  LeftRailLocations.add(new RailSegmentLocation( "A5", 1, 0));
-//  LeftRailLocations.add(new RailSegmentLocation( "A6", 0, 10));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "B1", 4, 13));
-//  LeftRailLocations.add(new RailSegmentLocation( "B2", 13, 21));
-//  LeftRailLocations.add(new RailSegmentLocation( "B3", 21, 12));
-//  LeftRailLocations.add(new RailSegmentLocation( "B4", 12, 2));
-//  LeftRailLocations.add(new RailSegmentLocation( "B5", 2, 11));
-//  LeftRailLocations.add(new RailSegmentLocation( "B6", 11, 19));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "C1", 14, 13));
-//  LeftRailLocations.add(new RailSegmentLocation( "C2", 13, 12));
-//  LeftRailLocations.add(new RailSegmentLocation( "C3", 12, 11));
-//  LeftRailLocations.add(new RailSegmentLocation( "C4", 11, 10));
-//  LeftRailLocations.add(new RailSegmentLocation( "C5", 10, 1));
-//  LeftRailLocations.add(new RailSegmentLocation( "C6", 1, 11));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "D1", 14, 22));
-//  LeftRailLocations.add(new RailSegmentLocation( "D2", 22, 13));
-//  LeftRailLocations.add(new RailSegmentLocation( "D3", 13, 3));
-//  LeftRailLocations.add(new RailSegmentLocation( "D4", 3, 12));
-//  LeftRailLocations.add(new RailSegmentLocation( "D5", 12, 20));
-//  LeftRailLocations.add(new RailSegmentLocation( "D6", 20, 11));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "E1", 14, 23));
-//  LeftRailLocations.add(new RailSegmentLocation( "E2", 23, 22));
-//  LeftRailLocations.add(new RailSegmentLocation( "E3", 22, 21));
-//  LeftRailLocations.add(new RailSegmentLocation( "E4", 21, 20));
-//  LeftRailLocations.add(new RailSegmentLocation( "E5", 20, 19));
-//  LeftRailLocations.add(new RailSegmentLocation( "E6", 19, 10));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "F1", 14, 15));
-//  LeftRailLocations.add(new RailSegmentLocation( "F2", 15, 6));
-//  LeftRailLocations.add(new RailSegmentLocation( "F3", 6, 16));
-//  LeftRailLocations.add(new RailSegmentLocation( "F4", 16, 25));
-//  LeftRailLocations.add(new RailSegmentLocation( "F5", 25, 24));
-//  LeftRailLocations.add(new RailSegmentLocation( "F6", 24, 16));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "G1", 14, 5));
-//  LeftRailLocations.add(new RailSegmentLocation( "G2", 5, 15));
-//  LeftRailLocations.add(new RailSegmentLocation( "G3", 15, 24));
-//  LeftRailLocations.add(new RailSegmentLocation( "G4", 24, 23));
-//  LeftRailLocations.add(new RailSegmentLocation( "G5", 23, 15));
-//  LeftRailLocations.add(new RailSegmentLocation( "G6", 15, 16));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "H1", 14, 4));
-//  LeftRailLocations.add(new RailSegmentLocation( "H2", 4, 5));
-//  LeftRailLocations.add(new RailSegmentLocation( "H3", 5, 6));
-//  LeftRailLocations.add(new RailSegmentLocation( "H4", 6, 7));
-//  LeftRailLocations.add(new RailSegmentLocation( "H5", 7, 16));
-//  LeftRailLocations.add(new RailSegmentLocation( "H6", 16, 17));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "J1", 18, 8));
-//  LeftRailLocations.add(new RailSegmentLocation( "J2", 8, 9));
-//  LeftRailLocations.add(new RailSegmentLocation( "J3", 9, 18));
-//  LeftRailLocations.add(new RailSegmentLocation( "J4", 18, 26));
-//  LeftRailLocations.add(new RailSegmentLocation( "J5", 26, 25));
-//  LeftRailLocations.add(new RailSegmentLocation( "J6", 25, 17));
-//
-//  LeftRailLocations.add(new RailSegmentLocation( "K1", 18, 17));
-//  LeftRailLocations.add(new RailSegmentLocation( "K2", 17, 8));
-//  LeftRailLocations.add(new RailSegmentLocation( "K3", 8, 7));
-//  LeftRailLocations.add(new RailSegmentLocation( "K4", 7, 17));
-//  LeftRailLocations.add(new RailSegmentLocation( "K5", 17, 26));
-//}
-//
-//void defineRightRail() {
-//
-//  RightRailLocations = new LinkedList<RailSegmentLocation>();
-//  RightRailLocations.add(new RailSegmentLocation( "A2", 4, 3));
-//  RightRailLocations.add(new RailSegmentLocation( "A3", 3, 2));
-//  RightRailLocations.add(new RailSegmentLocation( "A4", 2, 1));
-//  RightRailLocations.add(new RailSegmentLocation( "A5", 1, 0));
-//  RightRailLocations.add(new RailSegmentLocation( "A6", 0, 10));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "B1", 4, 13));
-//  RightRailLocations.add(new RailSegmentLocation( "B2", 13, 21));
-//  RightRailLocations.add(new RailSegmentLocation( "B3", 21, 12));
-//  RightRailLocations.add(new RailSegmentLocation( "B4", 12, 2));
-//  RightRailLocations.add(new RailSegmentLocation( "B5", 2, 11));
-//  RightRailLocations.add(new RailSegmentLocation( "B6", 11, 19));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "C1", 14, 13));
-//  RightRailLocations.add(new RailSegmentLocation( "C2", 13, 12));
-//  RightRailLocations.add(new RailSegmentLocation( "C3", 12, 11));
-//  RightRailLocations.add(new RailSegmentLocation( "C4", 11, 10));
-//  RightRailLocations.add(new RailSegmentLocation( "C5", 10, 1));
-//  RightRailLocations.add(new RailSegmentLocation( "C6", 1, 11));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "D1", 14, 22));
-//  RightRailLocations.add(new RailSegmentLocation( "D2", 22, 13));
-//  RightRailLocations.add(new RailSegmentLocation( "D3", 13, 3));
-//  RightRailLocations.add(new RailSegmentLocation( "D4", 3, 12));
-//  RightRailLocations.add(new RailSegmentLocation( "D5", 12, 20));
-//  RightRailLocations.add(new RailSegmentLocation( "D6", 20, 11));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "E1", 14, 23));
-//  RightRailLocations.add(new RailSegmentLocation( "E2", 23, 22));
-//  RightRailLocations.add(new RailSegmentLocation( "E3", 22, 21));
-//  RightRailLocations.add(new RailSegmentLocation( "E4", 21, 20));
-//  RightRailLocations.add(new RailSegmentLocation( "E5", 20, 19));
-//  RightRailLocations.add(new RailSegmentLocation( "E6", 19, 10));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "F1", 14, 15));
-//  RightRailLocations.add(new RailSegmentLocation( "F2", 15, 6));
-//  RightRailLocations.add(new RailSegmentLocation( "F3", 6, 16));
-//  RightRailLocations.add(new RailSegmentLocation( "F4", 16, 25));
-//  RightRailLocations.add(new RailSegmentLocation( "F5", 25, 24));
-//  RightRailLocations.add(new RailSegmentLocation( "F6", 24, 16));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "G1", 14, 5));
-//  RightRailLocations.add(new RailSegmentLocation( "G2", 5, 15));
-//  RightRailLocations.add(new RailSegmentLocation( "G3", 15, 24));
-//  RightRailLocations.add(new RailSegmentLocation( "G4", 24, 23));
-//  RightRailLocations.add(new RailSegmentLocation( "G5", 23, 15));
-//  RightRailLocations.add(new RailSegmentLocation( "G6", 15, 16));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "H1", 14, 4));
-//  RightRailLocations.add(new RailSegmentLocation( "H2", 4, 5));
-//  RightRailLocations.add(new RailSegmentLocation( "H3", 5, 6));
-//  RightRailLocations.add(new RailSegmentLocation( "H4", 6, 7));
-//  RightRailLocations.add(new RailSegmentLocation( "H5", 7, 16));
-//  RightRailLocations.add(new RailSegmentLocation( "H6", 16, 17));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "J1", 18, 8));
-//  RightRailLocations.add(new RailSegmentLocation( "J2", 8, 9));
-//  RightRailLocations.add(new RailSegmentLocation( "J3", 9, 18));
-//  RightRailLocations.add(new RailSegmentLocation( "J4", 18, 26));
-//  RightRailLocations.add(new RailSegmentLocation( "J5", 26, 25));
-//  RightRailLocations.add(new RailSegmentLocation( "J6", 25, 17));
-//
-//  RightRailLocations.add(new RailSegmentLocation( "K1", 18, 17));
-//  RightRailLocations.add(new RailSegmentLocation( "K2", 17, 8));
-//  RightRailLocations.add(new RailSegmentLocation( "K3", 8, 7));
-//  RightRailLocations.add(new RailSegmentLocation( "K4", 7, 17));
-//  RightRailLocations.add(new RailSegmentLocation( "K5", 17, 26));
-//}
+
+void defineLeftTrapazoid() {
+	LeftTrapazoidSegments = new LinkedList<Segment>(); // Name, [ Physical Space    ]  [     2D space     ]
+//  	LeftTrapazoidSegments.add(new Segment("LT1", BOX4 + 0, 0, 44, new PVector(10,0)));   // Name, Strip, Offset, Length, StartPoint
+//  	LeftTrapazoidSegments.add(new Segment("LT2", BOX4 + 0, 0, 44, new PVector(9,1)));
+//  	LeftTrapazoidSegments.add(new Segment("LT3", BOX4 + 0, 0, 44, new PVector(8,2)));
+//  	LeftTrapazoidSegments.add(new Segment("LT4", BOX4 + 0, 0, 44, new PVector(7,3)));
+//  	LeftTrapazoidSegments.add(new Segment("LT5", BOX4 + 0, 0, 44, new PVector(6,4)));
+//  	LeftTrapazoidSegments.add(new Segment("LT6", BOX4 + 0, 0, 44, new PVector(5,5)));
+//  	LeftTrapazoidSegments.add(new Segment("LT7", BOX4 + 0, 0, 44, new PVector(4,6)));
+//  	LeftTrapazoidSegments.add(new Segment("LT8", BOX4 + 0, 0, 44, new PVector(3,7)));
+//  	LeftTrapazoidSegments.add(new Segment("LT9", BOX4 + 0, 0, 44, new PVector(2,8)));
+//  	LeftTrapazoidSegments.add(new Segment("LT10", BOX4 + 0, 0, 44, new PVector(1,9)));
+//  	LeftTrapazoidSegments.add(new Segment("LT11", BOX4 + 0, 0, 44, new PVector(0,10)));
+
+//        LeftTrapazoidSegments.add(new Segment(0, new PVector(BOX4 + 0, 0, 44)));  // Trap num (0 top), PVector( Strip, startLed, endLed )
+//        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
+//        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
+//        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
+//        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
+//        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
+        LeftTrapazoidSegments.add(new Segment(7, new PVector(BOX4 + 1, 81, 23)));
+        LeftTrapazoidSegments.add(new Segment(8, new PVector(BOX4 + 1, 22, 0), new PVector(BOX4 + 0, 159, 120)));
+        LeftTrapazoidSegments.add(new Segment(9, new PVector(BOX4 + 0, 66, 122)));
+        LeftTrapazoidSegments.add(new Segment(10, new PVector(BOX4 + 0, 64, 0)));
+
+}
+
+
+
 //
 //
 //void defineTrapazoids() {
@@ -376,5 +184,76 @@ void defineLeftRail() {
   LeftRailSegments.add(new Segment("K3", BOX1 + 3, 53, 26, 8, 7));    // K is not mapped in physical space !!
   LeftRailSegments.add(new Segment("K4", BOX1 + 3, 80, 24, 7, 17)); 
   LeftRailSegments.add(new Segment("K5", BOX1 + 3, 107, 23, 17, 26));
+}
+
+void defineRightRail() {
+  RightRailSegments = new LinkedList<Segment>();		     // Name, [ Physical Space    ]  [     2D space     ]
+  RightRailSegments.add(new Segment("A2", BOX1 + 0, 29, 24, 4, 3));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("A3", BOX1 + 0, 55, 24, 3, 2));
+  RightRailSegments.add(new Segment("A4", BOX1 + 0, 81, 25, 2, 1)); 
+  RightRailSegments.add(new Segment("A5", BOX1 + 0, 107, 25, 1, 0)); 
+  RightRailSegments.add(new Segment("A6", BOX1 + 0, 133, 24, 0, 10));
+
+  RightRailSegments.add(new Segment("B1", BOX1 + 6, 8, 24, 4, 13));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("B2", BOX1 + 6, 26, 23, 13, 21));
+  RightRailSegments.add(new Segment("B3", BOX1 + 6, 52, 24, 21, 12)); 
+  RightRailSegments.add(new Segment("B4", BOX1 + 6, 78, 24, 12, 2)); 
+  RightRailSegments.add(new Segment("B5", BOX1 + 6, 104, 24, 2, 11));
+  RightRailSegments.add(new Segment("B6", BOX1 + 6, 130, 24, 11, 19)); 
+
+  RightRailSegments.add(new Segment("C1", BOX1 + 1, 4, 24, 14, 13));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("C2", BOX1 + 1, 31, 24, 13, 12));
+  RightRailSegments.add(new Segment("C3", BOX1 + 1, 56, 25, 12, 11)); 
+  RightRailSegments.add(new Segment("C4", BOX1 + 1, 83, 23, 11, 10)); 
+  RightRailSegments.add(new Segment("C5", BOX1 + 1, 110, 23, 10, 1));
+  RightRailSegments.add(new Segment("C6", BOX1 + 1, 138, 23, 1, 11)); 
+
+  RightRailSegments.add(new Segment("D1", BOX1 + 2, 4, 24, 14, 22));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("D2", BOX1 + 2, 29, 24, 22, 13));
+  RightRailSegments.add(new Segment("D3", BOX1 + 2, 54, 24, 13, 3)); 
+  RightRailSegments.add(new Segment("D4", BOX1 + 2, 81, 23, 3, 12)); 
+  RightRailSegments.add(new Segment("D5", BOX1 + 2, 107, 24, 12, 20));
+  RightRailSegments.add(new Segment("D6", BOX1 + 2, 132, 24, 20, 11)); 
+
+  RightRailSegments.add(new Segment("E1", BOX1 + 7, 3, 24, 14, 23));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("E2", BOX1 + 7, 29, 25, 23, 22));
+  RightRailSegments.add(new Segment("E3", BOX1 + 7, 55, 24, 22, 21)); 
+  RightRailSegments.add(new Segment("E4", BOX1 + 7, 80, 26, 21, 20)); 
+  RightRailSegments.add(new Segment("E5", BOX1 + 7, 107, 25, 20, 19));
+  RightRailSegments.add(new Segment("E6", BOX1 + 7, 132, 23, 19, 10)); 
+
+  RightRailSegments.add(new Segment("F1", BOX1 + 3, 3, 24, 14, 15));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("F2", BOX1 + 3, 29, 23, 15, 6));
+  RightRailSegments.add(new Segment("F3", BOX1 + 3, 53, 26, 6, 16));    // F is not mapped in physical space !!
+  RightRailSegments.add(new Segment("F4", BOX1 + 3, 80, 24, 16, 25)); 
+  RightRailSegments.add(new Segment("F5", BOX1 + 3, 107, 23, 25, 24));
+  RightRailSegments.add(new Segment("F6", BOX1 + 3, 132, 24, 24, 16)); 
+
+  RightRailSegments.add(new Segment("G1", BOX1 + 3, 3, 24, 14, 5));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("G2", BOX1 + 3, 29, 23, 5, 15));
+  RightRailSegments.add(new Segment("G3", BOX1 + 3, 53, 26, 15, 24));     // G is not mapped in physical space !!
+  RightRailSegments.add(new Segment("G4", BOX1 + 3, 80, 24, 24, 23)); 
+  RightRailSegments.add(new Segment("G5", BOX1 + 3, 107, 23, 23, 15));
+  RightRailSegments.add(new Segment("G6", BOX1 + 3, 132, 24, 15, 16)); 
+
+  RightRailSegments.add(new Segment("H1", BOX1 + 3, 3, 24, 14, 4));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("H2", BOX1 + 3, 29, 23, 4, 5));
+  RightRailSegments.add(new Segment("H3", BOX1 + 3, 53, 26, 5, 6)); 
+  RightRailSegments.add(new Segment("H4", BOX1 + 3, 80, 24, 6, 7)); 
+  RightRailSegments.add(new Segment("H5", BOX1 + 3, 107, 23, 7, 16));
+  RightRailSegments.add(new Segment("H6", BOX1 + 3, 132, 24, 16, 17)); 
+
+  RightRailSegments.add(new Segment("J1", BOX1 + 3, 3, 24, 18, 8));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("J2", BOX1 + 3, 29, 23, 8, 9));
+  RightRailSegments.add(new Segment("J3", BOX1 + 3, 53, 26, 9, 18));    // J is not mapped in physical space !!
+  RightRailSegments.add(new Segment("J4", BOX1 + 3, 80, 24, 18, 26)); 
+  RightRailSegments.add(new Segment("J5", BOX1 + 3, 107, 23, 26, 25));
+  RightRailSegments.add(new Segment("J6", BOX1 + 3, 132, 24, 25, 17)); 
+
+  RightRailSegments.add(new Segment("K1", BOX1 + 3, 3, 24, 18, 17));   // Name, Strip, Offset, Length, StartPoint, EndPoint
+  RightRailSegments.add(new Segment("K2", BOX1 + 3, 29, 23, 17, 8));
+  RightRailSegments.add(new Segment("K3", BOX1 + 3, 53, 26, 8, 7));    // K is not mapped in physical space !!
+  RightRailSegments.add(new Segment("K4", BOX1 + 3, 80, 24, 7, 17)); 
+  RightRailSegments.add(new Segment("K5", BOX1 + 3, 107, 23, 17, 26));
 }
 
