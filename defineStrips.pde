@@ -76,24 +76,12 @@ void defineStrips() {
   rightRail.add(new RailSegment("H5", 3, 107, 23));
   rightRail.add(new RailSegment("H6", 3, 132, 24));
 
-  pyramidSegments = Collections.synchronizedList(new LinkedList<RailSegment>());
-  pyramidSegments.add(new RailSegment("A2", 0, 29, 24));
-  pyramidSegments.add(new RailSegment("A3", 0, 55, 24));
-  pyramidSegments.add(new RailSegment("A4", 0, 81, 25));
-  pyramidSegments.add(new RailSegment("A5", 0, 107, 25));
-  pyramidSegments.add(new RailSegment("A6", 0, 133, 24));
-  pyramidSegments.add(new RailSegment("B1", 6, 0, 24));
-  pyramidSegments.add(new RailSegment("B2", 6, 26, 23));
-  pyramidSegments.add(new RailSegment("B3", 6, 52, 24));
-  pyramidSegments.add(new RailSegment("B4", 6, 78, 24));
-  pyramidSegments.add(new RailSegment("B5", 6, 104, 24));
-  pyramidSegments.add(new RailSegment("B6", 6, 130, 24));
 }
 
 void defineLeftRail() {
 
   LeftRailLocations = new LinkedList<RailSegmentLocation>();
-  LeftRailLocations.add(new RailSegmentLocation( "A2", 4, 3));
+  LeftRailLocations.add(new RailSegmentLocation( "A2", 4, 30));
   LeftRailLocations.add(new RailSegmentLocation( "A3", 3, 2));
   LeftRailLocations.add(new RailSegmentLocation( "A4", 2, 1));
   LeftRailLocations.add(new RailSegmentLocation( "A5", 1, 0));
@@ -234,28 +222,87 @@ void defineRightRail() {
   RightRailLocations.add(new RailSegmentLocation( "K5", 17, 26));
 }
 
-void definePyramid() {
-  pyramidSegmentLocations = new LinkedList<RailSegmentLocation>();
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A2", 300, 215, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A3", 215, 130, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A4", 130, 50, true));
 
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A2", 350, 250, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A3", 250, 150, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A4", 150, 50, true));
+void defineTrapazoids() {
+  LeftTrapazoidLocations = new LinkedList<TrapazoidSegmentLocation>();
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT1", new PVector(10,0), new PVector(53,0))); // X: 0-6, Y: 0-10 Top Left
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT2", new PVector(9,1), new PVector(54,1)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT3", new PVector(8,2), new PVector(55,2)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT4", new PVector(7,3), new PVector(56,3)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT5", new PVector(6,4), new PVector(57,4)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT6", new PVector(5,5), new PVector(58,5)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT7", new PVector(4,6), new PVector(59,6)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT8", new PVector(3,7), new PVector(60,7)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT9", new PVector(2,8), new PVector(61,8)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT10", new PVector(1,9), new PVector(62,9)));
+  LeftTrapazoidLocations.add(new TrapazoidSegmentLocation("LT11", new PVector(0,10), new PVector(63,10)));
   
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A2", 399, 285, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A3", 285, 170, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A4", 170, 50, true));
+  LeftTrapazoidSegments = Collections.synchronizedList(new LinkedList<TrapazoidSegment>());
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT1", BOX4 + 0, 0, 44));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT2", BOX4 + 0, 0, 46));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT3", BOX4 + 0, 0, 48));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT4", BOX4 + 0, 0, 50));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT5", BOX4 + 0, 0, 52));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT6", BOX4 + 0, 0, 56));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT7", BOX4 + 0, 0, 56));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT8", BOX4 + 0, 0, 58));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT9", BOX4 + 0, 0, 58));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT10", BOX4 + 0, 0, 62));
+  LeftTrapazoidSegments.add(new TrapazoidSegment("LT11", BOX4 + 0, 0, 64));
   
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A4", 130, 150, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A4", 150, 170, true));
   
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A2", 215, 250, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A3", 250, 285, true));
+  CenterTrapazoidLocations = new LinkedList<TrapazoidSegmentLocation>();
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT1", new PVector(10,0), new PVector(53,0))); // X: 0-6, Y: 0-10 Top Left
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT2", new PVector(9,1), new PVector(54,1)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT3", new PVector(8,2), new PVector(55,2)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT4", new PVector(7,3), new PVector(56,3)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT5", new PVector(6,4), new PVector(57,4)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT6", new PVector(5,5), new PVector(58,5)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT7", new PVector(4,6), new PVector(59,6)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT8", new PVector(3,7), new PVector(60,7)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT9", new PVector(2,8), new PVector(61,8)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT10", new PVector(1,9), new PVector(62,9)));
+  CenterTrapazoidLocations.add(new TrapazoidSegmentLocation("LT11", new PVector(0,10), new PVector(63,10)));
   
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A4", 300, 350, true));
-  pyramidSegmentLocations.add(new RailSegmentLocation( "A4", 350, 399, true));
- 
+  CenterTrapazoidSegments = Collections.synchronizedList(new LinkedList<TrapazoidSegment>());
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT1", BOX4 + 0, 0, 44));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT2", BOX4 + 0, 0, 46));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT3", BOX4 + 0, 0, 48));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT4", BOX4 + 0, 0, 50));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT5", BOX4 + 0, 0, 52));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT6", BOX4 + 0, 0, 56));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT7", BOX4 + 0, 0, 56));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT8", BOX4 + 0, 0, 58));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT9", BOX4 + 0, 0, 58));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT10", BOX4 + 0, 0, 62));
+  CenterTrapazoidSegments.add(new TrapazoidSegment("LT11", BOX4 + 0, 0, 64));
+  
+  RightTrapazoidLocations = new LinkedList<TrapazoidSegmentLocation>();
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT1", new PVector(10,0), new PVector(53,0))); // X: 0-6, Y: 0-10 Top Left
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT2", new PVector(9,1), new PVector(54,1)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT3", new PVector(8,2), new PVector(55,2)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT4", new PVector(7,3), new PVector(56,3)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT5", new PVector(6,4), new PVector(57,4)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT6", new PVector(5,5), new PVector(58,5)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT7", new PVector(4,6), new PVector(59,6)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT8", new PVector(3,7), new PVector(60,7)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT9", new PVector(2,8), new PVector(61,8)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT10", new PVector(1,9), new PVector(62,9)));
+  RightTrapazoidLocations.add(new TrapazoidSegmentLocation("LT11", new PVector(0,10), new PVector(63,10)));
+  
+  RightTrapazoidSegments = Collections.synchronizedList(new LinkedList<TrapazoidSegment>());
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT1", BOX4 + 0, 0, 44));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT2", BOX4 + 0, 0, 46));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT3", BOX4 + 0, 0, 48));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT4", BOX4 + 0, 0, 50));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT5", BOX4 + 0, 0, 52));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT6", BOX4 + 0, 0, 56));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT7", BOX4 + 0, 0, 56));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT8", BOX4 + 0, 0, 58));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT9", BOX4 + 0, 0, 58));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT10", BOX4 + 0, 0, 62));
+  RightTrapazoidSegments.add(new TrapazoidSegment("LT11", BOX4 + 0, 0, 64));
+  
+  
 }
 

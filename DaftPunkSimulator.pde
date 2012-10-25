@@ -17,6 +17,12 @@ DemoTransmitter demoTransmitter;
 int animationStep = 0;
 int maxConvertedByte = 0;
 
+int BOX1=0;
+int BOX2=8;
+int BOX3=16;
+int BOX4=24;
+int BOX5=32;
+
 Rail leftRailRail;          // Abstrated the rail segments into a rail, but didn't want to change the variable
 List<RailSegment> leftRail; // because the file is shared with the transmitter
 List<RailSegmentLocation> LeftRailLocations;
@@ -25,12 +31,25 @@ Rail rightRailRail;
 List<RailSegment> rightRail;
 List<RailSegmentLocation> RightRailLocations;
 
-Rail pyramid;
-List<RailSegment> pyramidSegments;
-List<RailSegmentLocation> pyramidSegmentLocations;
+Pyramid pyramid;
+List<Trapazoid> trapazoids;
+List<TrapazoidSegment> LeftTrapazoidSegments;
+List<TrapazoidSegment> CenterTrapazoidSegments;
+List<TrapazoidSegment> RightTrapazoidSegments;
+
+List<TrapazoidSegmentLocation> LeftTrapazoidLocations;
+List<TrapazoidSegmentLocation> CenterTrapazoidLocations;
+List<TrapazoidSegmentLocation> RightTrapazoidLocations;
+
+
+//Rail pyramid;
+//List<RailSegment> pyramidSegments;
+//List<RailSegmentLocation> pyramidSegmentLocations;
+
+
 
 void setup() {
-  size(1200, 400);
+  size(1200, 800);
   colorMode(RGB,255);
   frameRate(60);
   newImageQueue = new ArrayBlockingQueue(2);
@@ -46,13 +65,19 @@ void setup() {
 
   defineLeftRail();   // Define the rail segments by where they are in pixel space
   defineRightRail();
-  definePyramid();
+  defineTrapazoids();
   
   // Add the pixel and image rail locations to a Rail and tell it where (in pixel space) to put the Rail
   // This is just a pixel offset applied to all the RailSegmentLocations in that rail
   leftRailRail = new Rail(leftRail, LeftRailLocations, new PVector(75,0));
   rightRailRail = new Rail(rightRail, RightRailLocations, new PVector(75,200));
-  pyramid = new Rail(pyramidSegments, pyramidSegmentLocations, new PVector(800, 0));
+  
+  trapazoids = new LinkedList<Trapazoid>();
+  trapazoids.add( new Trapazoid(LeftTrapazoidSegments, LeftTrapazoidLocations, new PVector(100,450)));
+  trapazoids.add( new Trapazoid(CenterTrapazoidSegments, CenterTrapazoidLocations, new PVector(450,450)));
+  trapazoids.add( new Trapazoid(RightTrapazoidSegments, RightTrapazoidLocations, new PVector(800,450)));
+  
+  pyramid = new Pyramid(trapazoids);
   
   demoTransmitter = new DemoTransmitter();
   demoTransmitter.start();
@@ -122,7 +147,7 @@ void draw() {
   if(currentImage != null) {
     leftRailRail.draw();
     rightRailRail.draw();
-    pyramid.draw();
+      pyramid.draw();
   }
   
   imageHud.draw();
