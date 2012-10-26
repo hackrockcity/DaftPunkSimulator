@@ -50,7 +50,7 @@ void setup() {
   rightRail = new Fixture(RightRailSegments, new PVector(100,100));
   
   defineLeftTrapazoid();
-  leftTrapazoid = new Fixture(LeftTrapazoidSegments, new PVector(200,200));
+  leftTrapazoid = new Fixture(LeftTrapazoidSegments, new PVector(400,200));
 
   demoTransmitter = new DemoTransmitter();
   demoTransmitter.start();

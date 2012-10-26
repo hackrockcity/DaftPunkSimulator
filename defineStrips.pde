@@ -14,16 +14,29 @@ void defineLeftTrapazoid() {
 //  	LeftTrapazoidSegments.add(new Segment("LT10", BOX4 + 0, 0, 44, new PVector(1,9)));
 //  	LeftTrapazoidSegments.add(new Segment("LT11", BOX4 + 0, 0, 44, new PVector(0,10)));
 
-//        LeftTrapazoidSegments.add(new Segment(0, new PVector(BOX4 + 0, 0, 44)));  // Trap num (0 top), PVector( Strip, startLed, endLed )
+//        LeftTrapazoidSegments.add(new Segment(0, new PVector(BOX4 + 0, 0, 44)));  // Trap num (0 top), PVector( Strip, startLed, length )
 //        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
 //        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
 //        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
 //        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
 //        LeftTrapazoidSegments.add(new Segment(1, new PVector(BOX4 + 0, 0, 64)));
-        LeftTrapazoidSegments.add(new Segment(7, new PVector(BOX4 + 1, 81, 23)));
-        LeftTrapazoidSegments.add(new Segment(8, new PVector(BOX4 + 1, 22, 0), new PVector(BOX4 + 0, 159, 120)));
-        LeftTrapazoidSegments.add(new Segment(9, new PVector(BOX4 + 0, 66, 122)));
-        LeftTrapazoidSegments.add(new Segment(10, new PVector(BOX4 + 0, 64, 0)));
+//        LeftTrapazoidSegments.add(new Segment(7, new PVector(BOX4 + 1, 81, 23)));
+//        LeftTrapazoidSegments.add(new Segment(8, new PVector(BOX4 + 1, 22, 0), new PVector(BOX4 + 0, 159, 120)));
+//        LeftTrapazoidSegments.add(new Segment(9, new PVector(BOX4 + 0, 66, 122)));
+        //LeftTrapazoidSegments.add(new Segment(10, new PVector(BOX4 + 0, 64, -64)));
+        //LeftTrapazoidSegments.add(new Segment(8, BOX4 + 1, 22, -22, BOX4 + 0, 123, -39));
+        
+        LeftTrapazoidSegments.add(new Segment(0, BOX4 + 3, 154, -44));
+        LeftTrapazoidSegments.add(new Segment(1, BOX4 + 3, 59, 46));
+        LeftTrapazoidSegments.add(new Segment(2, BOX4 + 3, 54, -50));
+        LeftTrapazoidSegments.add(new Segment(3, BOX4 + 2, 159, -50));
+        LeftTrapazoidSegments.add(new Segment(4, BOX4 + 2, 51, 52));
+        LeftTrapazoidSegments.add(new Segment(5, BOX4 + 1, 157, 2, BOX4 + 2, 0, 50));
+        LeftTrapazoidSegments.add(new Segment(6, BOX4 + 1, 153, -55));
+        LeftTrapazoidSegments.add(new Segment(7, BOX4 + 1, 39, 57));
+        LeftTrapazoidSegments.add(new Segment(8, BOX4 + 1, 34, -34, BOX4 + 0, 159, -23));
+        LeftTrapazoidSegments.add(new Segment(9, BOX4 + 0, 71, 62));
+        LeftTrapazoidSegments.add(new Segment(10, BOX4 + 0, 64, -64));
 
 }
 

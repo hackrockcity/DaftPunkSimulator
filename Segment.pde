@@ -1,42 +1,45 @@
 class SubSegment {
-  private PVector info;
-  public int strip;
-  public int startLed;
-  public int endLed;
-  public int length;
-  
-  PVector m_startPosition;
-  PVector m_endPosition;
-  
-  SubSegment(PVector in, int startPoint, int endPoint) {
-    info = in;
-    strip = int(info.x);
-    startLed = int(info.y);
-    endLed = int(info.z);
-    length = abs(endLed - startLed);
-    
-    m_startPosition = getPositionFromPoint(startPoint);
-    m_endPosition   = getPositionFromPoint(endPoint);
-  }
-  
-   SubSegment(int num, PVector in) {
-    info = in;
-    strip = int(info.x);
-    startLed = int(info.y);
-    endLed = int(info.z);
-    length = abs(endLed - startLed);
-    
-    PVector startPoint = new PVector(10 - num, num); //pixel space
-    PVector endPoint = startPoint.get();
-    endPoint.add(new PVector(length, 0));
+  //private PVector info;
+  public int m_strip;
+  public int m_start;
+  public int m_length;
+  public PVector m_startpoint; // prescaled
+  public PVector m_endpoint;
 
-    m_startPosition = getPositionFromPoint(startPoint);
-    m_endPosition   = getPositionFromPoint(endPoint);
+  PVector pixel_start_position; //post scaled
+  PVector pixel_end_position;
+
+  SubSegment(String name, int strip, int offset, int length, int startPoint, int endPoint) {
+    m_strip = strip;
+    m_start = offset;
+    m_length = length;
+
+    pixel_start_position = getPositionFromPoint(startPoint);
+    pixel_end_position   = getPositionFromPoint(endPoint);
   }
-  
+
+
+  SubSegment(int num, int strip, int start, int length, int offset) {
+    m_strip = strip;
+    m_start = start;
+    m_length = length;
+
+    PVector startPoint = new PVector(10 - num, num); //pixel space
+    startPoint.add(new PVector(offset, 0));
+
+    PVector endPoint = startPoint.get();
+    endPoint.add(new PVector(abs(length), 0));
+
+    m_startpoint = startPoint;
+    m_endpoint = endPoint;
+
+    pixel_start_position = getPositionFromPoint(startPoint);
+    pixel_end_position   = getPositionFromPoint(endPoint);
     
-  
-    PVector getPositionFromPoint(int point) {
+  }
+
+
+  PVector getPositionFromPoint(int point) {
     float xScale = 70;
     float yScale = 70;
     float xOffset = 5;
@@ -64,8 +67,8 @@ class SubSegment {
 
     return new PVector(x*xScale + xOffset, y*yScale + yOffset);
   }
-  
-   PVector getPositionFromPoint(PVector point) {
+
+  PVector getPositionFromPoint(PVector point) {
 
     PVector scale = new PVector(5, 10);
     PVector offset = new PVector(0, 0);
@@ -76,7 +79,6 @@ class SubSegment {
 
     return out;
   }
-
 }
 
 class Segment {
@@ -91,64 +93,55 @@ class Segment {
     m_name = name;
     rail = true;
 
-    SubSegment sub = new SubSegment(new PVector(strip, offset, offset + length), startPoint, endPoint);
+    SubSegment sub = new SubSegment(name, strip, offset, length, startPoint, endPoint);
     subSegments = new LinkedList<SubSegment>();
     subSegments.add(sub);
-
   }
 
-  // For Trapazoids because I forgot that some traps span two strips in both directions
-  Segment(int num, PVector strip1) {
-      
-      SubSegment sub = new SubSegment(num, strip1);
-      subSegments = new LinkedList<SubSegment>();
-      subSegments.add(sub);
+  Segment(int num, int strip, int start, int length) {
 
+    SubSegment sub = new SubSegment(num, strip, start, length, 0);
+    subSegments = new LinkedList<SubSegment>();
+    subSegments.add(sub);
   }
 
-  // For Trapazoids because I forgot that some traps span two strips in both directions
-  Segment(int num, PVector strip1, PVector strip2) {
-      SubSegment sub1 = new SubSegment(num, strip1);
-      SubSegment sub2 = new SubSegment(num, strip2);
-      
-      sub2.m_startPosition.add(new PVector(sub1.m_endPosition.x, 0));
-      sub2.m_endPosition.add(new PVector(sub1.m_endPosition.x, 0));
-      
-      subSegments = new LinkedList<SubSegment>();
-      subSegments.add(sub1);
-      subSegments.add(sub2);
+  Segment(int num, int strip1, int start1, int length1, int strip2, int start2, int length2) {
+    SubSegment sub1 = new SubSegment(num, strip1, start1, length1, 0);
+    SubSegment sub2 = new SubSegment(num, strip2, start2, length2, abs(length1));
 
+    subSegments = new LinkedList<SubSegment>();
+    subSegments.add(sub1);
+    subSegments.add(sub2);
   }
-
-
 
 
   void draw() {
+    strokeWeight(3);
 
     if (rail) {
       SubSegment seg = subSegments.get(0);
-      stroke(currentImage[seg.strip + strips*seg.startLed]);  
-      strokeWeight(3);
-      line(m_startPosition.x, m_startPosition.y, m_endPosition.x, m_endPosition.y);
-    } else {
-      
+      stroke(currentImage[seg.m_strip + strips*seg.m_start]);  
+      line(seg.pixel_start_position.x, seg.pixel_start_position.y, seg.pixel_end_position.x, seg.pixel_end_position.y);
+    } 
+    else {
+
       for (SubSegment seg : subSegments) {
-        stroke(currentImage[seg.strip + strips*seg.startLed]);
-        strokeWeight(3);
-        float amt = 1.0 / seg.length;
-        println("Subseg start x: " + seg.m_startPosition.x + " y: " + seg.m_startPosition.y);
-        println("Subseg end x: " + seg.m_endPosition.x + " y: " + seg.m_endPosition.y);
-        for (int x=0; x < seg.length; x++) {
+        float amt = 1.0 / abs(seg.m_length);
+        
+        for (int x=0; x < abs(seg.m_length); x++) {
           float q = amt * x;
+          if (seg.m_length < 0) {
+            stroke(currentImage[seg.m_strip + strips*seg.m_start + (seg.m_length - x)]);
+          } else {
+            stroke(currentImage[seg.m_strip + strips*seg.m_start + x]);
+          }
           
-          point(lerp(seg.m_startPosition.x, seg.m_endPosition.x, q), lerp(seg.m_startPosition.y, seg.m_endPosition.y, q)); 
+          PVector point = new PVector(lerp(seg.pixel_start_position.x, seg.pixel_end_position.x, q), lerp(seg.pixel_start_position.y, seg.pixel_end_position.y, q)); 
+          //println(point);
+          point(point.x, point.y);
         }
-        
-        
       }
     }
-    
-  
   }
 }
 
