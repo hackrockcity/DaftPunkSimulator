@@ -32,8 +32,15 @@ Fixture rightRail;
 List<Segment> LeftTrapazoidSegments;
 Fixture leftTrapazoid;
 
+List<Segment> CenterTrapazoidSegments;
+Fixture centerTrap;
+
+List<Segment> RightTrapazoidSegments;
+Fixture rightTrapazoid;
+
+
 void setup() {
-  size(1200, 800);
+  size(1300, 350);
   colorMode(RGB, 255);
   frameRate(60);
   newImageQueue = new ArrayBlockingQueue(2);
@@ -45,12 +52,18 @@ void setup() {
 
   defineLeftRail();   // Define the rail segments by where they are in pixel space
   leftRail = new Fixture(LeftRailSegments, new PVector(0, 0));
-  
+
   defineRightRail();
-  rightRail = new Fixture(RightRailSegments, new PVector(100,100));
-  
+  rightRail = new Fixture(RightRailSegments, new PVector(650, 0));
+
   defineLeftTrapazoid();
-  leftTrapazoid = new Fixture(LeftTrapazoidSegments, new PVector(400,200));
+  leftTrapazoid = new Fixture(LeftTrapazoidSegments, new PVector(150, 200)); 
+
+  defineCenterTrapazoid();
+  centerTrap = new Fixture(CenterTrapazoidSegments, new PVector(500, 200));
+
+  defineRightTrapazoid();
+  rightTrapazoid = new Fixture(RightTrapazoidSegments, new PVector(850, 200));
 
   demoTransmitter = new DemoTransmitter();
   demoTransmitter.start();
@@ -118,9 +131,11 @@ void draw() {
   background(0);
 
   if (currentImage != null) {
-    //leftRail.draw();
+    leftRail.draw();
+    rightRail.draw();
     leftTrapazoid.draw();
-    
+    centerTrap.draw();
+    rightTrapazoid.draw();
   }
 
   imageHud.draw();
