@@ -5,6 +5,7 @@ int lights_per_strip = 32*5;
 int strips = 40;
 int packet_length = strips*lights_per_strip*3 + 1;
 
+boolean pixelSegments = false; // Display rail segments as pixels or as lines?
 
 Boolean demoMode = true;
 BlockingQueue newImageQueue;
@@ -42,7 +43,7 @@ Fixture rightTrapazoid;
 void setup() {
   size(1300, 350);
   colorMode(RGB, 255);
-  frameRate(60);
+  frameRate(30);
   newImageQueue = new ArrayBlockingQueue(2);
 
   imageHud = new ImageHud(20, height-160-20, strips, lights_per_strip);
