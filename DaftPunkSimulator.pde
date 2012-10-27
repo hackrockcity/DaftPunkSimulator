@@ -5,7 +5,7 @@ int lights_per_strip = 32*5;
 int strips = 40;
 int packet_length = strips*lights_per_strip*3 + 1;
 
-boolean pixelSegments = false; // Display rail segments as pixels or as lines?
+boolean pixelSegments = true; // Display rail segments as pixels or as lines?
 
 Boolean demoMode = true;
 BlockingQueue newImageQueue;
@@ -18,11 +18,11 @@ DemoTransmitter demoTransmitter;
 int animationStep = 0;
 int maxConvertedByte = 0;
 
-int BOX1=0;
-int BOX2=8;
-int BOX3=16;
-int BOX4=24;
-int BOX5=32;
+int BOX0=0;
+int BOX1=8;
+int BOX2=16;
+int BOX3=24;
+int BOX4=32;
 
 List<Segment> LeftRailSegments;
 Fixture leftRail;
@@ -41,7 +41,7 @@ Fixture rightTrapazoid;
 
 
 void setup() {
-  size(1300, 350);
+  size(1400, 350);
   colorMode(RGB, 255);
   frameRate(30);
   newImageQueue = new ArrayBlockingQueue(2);
@@ -52,19 +52,19 @@ void setup() {
   udp.listen( true );
 
   defineLeftRail();   // Define the rail segments by where they are in pixel space
-  leftRail = new Fixture(LeftRailSegments, new PVector(0, 0));
+  leftRail = new Fixture(LeftRailSegments, new PVector(100, 0));
 
   defineRightRail();
-  rightRail = new Fixture(RightRailSegments, new PVector(650, 0));
+  rightRail = new Fixture(RightRailSegments, new PVector(750, 0), true);
 
   defineLeftTrapazoid();
-  leftTrapazoid = new Fixture(LeftTrapazoidSegments, new PVector(150, 200)); 
+  leftTrapazoid = new Fixture(LeftTrapazoidSegments, new PVector(250, 200)); 
 
   defineCenterTrapazoid();
-  centerTrap = new Fixture(CenterTrapazoidSegments, new PVector(500, 200));
+  centerTrap = new Fixture(CenterTrapazoidSegments, new PVector(600, 200));
 
   defineRightTrapazoid();
-  rightTrapazoid = new Fixture(RightTrapazoidSegments, new PVector(850, 200));
+  rightTrapazoid = new Fixture(RightTrapazoidSegments, new PVector(950, 200));
 
   demoTransmitter = new DemoTransmitter();
   demoTransmitter.start();

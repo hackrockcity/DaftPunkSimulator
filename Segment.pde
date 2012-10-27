@@ -1,8 +1,8 @@
 class Segment {
   String m_name;
   List<SubSegment> subSegments;
-  PVector m_startPosition;
-  PVector m_endPosition;
+//  PVector m_startPosition;
+//  PVector m_endPosition;
   boolean rail = false;
 
   // For rails using the integer "point" system
@@ -57,8 +57,9 @@ class Segment {
           else {
             stroke(currentImage[seg.m_strip + strips*(seg.m_start + x)]);
           }
-
+                    
           PVector point = new PVector(lerp(seg.pixel_start_position.x, seg.pixel_end_position.x, q), lerp(seg.pixel_start_position.y, seg.pixel_end_position.y, q)); 
+          
           point(point.x, point.y);
         }
       }
