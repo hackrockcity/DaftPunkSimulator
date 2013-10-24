@@ -17,7 +17,6 @@ class Fixture {
     point = in_point;
     
     for (Segment seg : segments) {
-      seg.mirrored = in_mirrored;
       
       if (in_mirrored) {
         for (SubSegment sub : seg.subSegments) {

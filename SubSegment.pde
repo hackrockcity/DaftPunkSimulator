@@ -70,7 +70,7 @@ class SubSegment {
     PVector offset = new PVector(0, 0);
 
     PVector out = point.get();
-    out.mult(scale);
+    out.mult(scale,1);
     out.add(offset);
 
     return out;
